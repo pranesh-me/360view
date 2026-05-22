@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Luxury jewelry 3D product viewer powered by Google Model Viewer.">
+    <title>Luxury Ring 3D Product Viewer</title>
+    <link rel="preconnect" href="https://unpkg.com">
+    <link rel="stylesheet" href="viewer.css">
+    <script type="module" src="https://unpkg.com/@google/model-viewer@4.2.0/dist/model-viewer.min.js"></script>
+  </head>
+  <body>
+    <main class="product-shell" aria-labelledby="product-title">
+      <section class="viewer-panel" aria-label="Interactive 3D jewelry viewer">
+        <div class="viewer-stage" id="viewerStage">
+          <!-- Camera and exposure values are tuned for small reflective jewelry pieces. -->
+          <model-viewer
+            id="jewelryViewer"
+            src="models/ring.glb"
+            poster="poster/preview.webp"
+            alt="Interactive 3D view of a luxury ring"
+            environment-image="neutral"
+            data-hdr-src="hdr/studio.hdr"
+            camera-controls
+            touch-action="pan-y"
+            auto-rotate
+            auto-rotate-delay="1200"
+            rotation-per-second="24deg"
+            shadow-intensity="0.9"
+            shadow-softness="0.82"
+            exposure="1.25"
+            tone-mapping="aces"
+            camera-orbit="35deg 68deg 2.35m"
+            min-camera-orbit="auto 20deg 1.35m"
+            max-camera-orbit="auto 88deg 4.2m"
+            field-of-view="22deg"
+            min-field-of-view="12deg"
+            max-field-of-view="36deg"
+            interaction-prompt="auto"
+            interaction-prompt-style="basic"
+            bounds="tight"
+            ar
+            ar-modes="webxr scene-viewer quick-look">
+          </model-viewer>
+
+          <!-- The progress event from model-viewer drives this overlay in viewer.js. -->
+          <div class="loading-overlay" id="loadingOverlay" aria-live="polite">
+            <div class="loading-mark" aria-hidden="true"></div>
+            <p class="loading-copy">Preparing 3D view</p>
+            <div class="progress-track" role="progressbar" aria-label="3D model loading progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+              <span class="progress-bar" id="progressBar"></span>
+            </div>
+            <span class="progress-value" id="progressValue">0%</span>
+          </div>
+
+          <!-- Controls stay outside model-viewer so they can be styled for ecommerce UI. -->
+          <div class="viewer-controls" aria-label="3D viewer controls">
+            <button class="control-button" type="button" id="rotateToggle" aria-pressed="true">
+              <span class="control-icon" aria-hidden="true">R</span>
+              <span>Auto Rotate</span>
+            </button>
+            <button class="control-button" type="button" id="fullscreenToggle">
+              <span class="control-icon" aria-hidden="true">F</span>
+              <span>Fullscreen</span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <aside class="product-details" aria-label="Product details">
+        <p class="eyebrow">Fine Jewelry Collection</p>
+        <h1 id="product-title">Signature Diamond Ring</h1>
+        <p class="product-summary">
+          Explore every polished edge, setting, and reflection with a studio-lit 360 degree product view.
+        </p>
+
+        <dl class="spec-list">
+          <div>
+            <dt>Material</dt>
+            <dd>18k gold finish</dd>
+          </div>
+          <div>
+            <dt>Lighting</dt>
+            <dd>HDR studio reflections</dd>
+          </div>
+          <div>
+            <dt>View</dt>
+            <dd>Rotate, zoom, and inspect</dd>
+          </div>
+        </dl>
+      </aside>
+    </main>
+
+    <script src="viewer.js" defer></script>
+  </body>
+</html>
